@@ -88,46 +88,6 @@ base_layer
 
 ```
 
-
-<div class="vega-embed" id="f14ed2c6-d3db-4912-a3ab-158ecb4983d6"></div>
-
-<style>
-.vega-embed .vega-actions > a {
-    transition: opacity 200ms ease-in;
-    opacity: 0.3;
-    margin-right: 0.6em;
-    color: #444;
-    text-decoration: none;
-}
-
-.vega-embed .vega-actions > a:hover {
-    color: #000;
-    text-decoration: underline;
-}
-
-.vega-embed:hover .vega-actions > a {
-    opacity: 1;
-    transition: 0s;
-}
-
-.vega-embed .error p {
-    color: firebrick;
-    font-size: 1.2em;
-}
-</style>
-
-
-
-
-
-
-
-
-    
-
-
-
-
 ![png](markdown_images/Altair_Demo_6_3.png)
 
 
