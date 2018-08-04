@@ -102,23 +102,6 @@ gdf = gpd.GeoDataFrame.from_features((anc_json))
 gdf.head()
 ```
 
-
-
-
-<div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -187,12 +170,9 @@ gdf.head()
 </table>
 </div>
 
-
-
 ## Add Population Data to Geopandas Dataframe
 
 Now that we have a Geopandas Dataframe, we can join on our 2000 and 2010 population data that comes from the [DC Office of Planning](https://planning.dc.gov/publication/anc-population-change-census-2000-and-2010).  This data is in PDF format, which we could leverage here directly, but to simplifly the process I've provided a CSV of this data in my [Github](https://github.com/msussman/Altair_Demo/blob/master/data/anc_population.csv).  We will read this CSV directly into a dataframe and join onto our Geopandas dataframe.
-
 
 ```python
 pop_df = pd.read_csv('../data/anc_population.csv')
@@ -200,23 +180,7 @@ gdf = gdf.merge(pop_df, on='ANC_ID', how='inner')
 gdf.head()
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -309,12 +273,9 @@ gdf.head()
 </table>
 </div>
 
-
-
 ## Determine Center of Each ANC Polygon
 
 For the next data preparation step, we'll calculate the centroid (center) coordinates of each ANC polygon in order later add centered ANC labels to each geographic ANC polygon.  The Geopandas centroid method makes this calculation easy.
-
 
 ```python
 gdf['centroid_lon'] = gdf['geometry'].centroid.x
@@ -322,23 +283,7 @@ gdf['centroid_lat'] = gdf['geometry'].centroid.y
 gdf.head()
 ```
 
-
-
-
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -443,12 +388,9 @@ gdf.head()
 </table>
 </div>
 
-
-
 ## Convert Geopandas Dataframe back to GeoJSON
 
 Now that we have all the data we need to create my map, we can convert the Geopandas dataframe back to a GeoJSON and render the features from the GeoJSON into Altair.
-
 
 ```python
 choro_json = json.loads(gdf.to_json())
@@ -468,7 +410,6 @@ with the ANC Population in 2000 choropleth map exactly how we want it, here are 
 + **Color Scheme**:  The color scheme is explicitly defined 'bluegreen' as a parameter of the Scale method when encoding the Choropleth layer.  Since Altaier is built on Vega, the available color schemes are predefined by what's [available in Vega](https://vega.github.io/vega/docs/schemes/)
 + **Specifying Data Types**: In the labels layer, the data typesare explicitly defined as quantitative ":Q" and ordinal ":O".  This is necessary because we're passing a JSON, not a dataframe into the Altair Chart method, so the data types are cannot be communicated to Altair.  Most Altair plots leverage a dataframe, so this step isn't generally necessary, but is a good habit to ensure altair is rendering the data as intended.
 + **Adding Layers**: In the return statement, we use the "+" to add the layers on top of each other, which highlights the elegant simplicity that separates Altair from other visualization packages.
-
 
 ```python
 def gen_map(geodata, color_column, title):
@@ -511,48 +452,7 @@ pop_2000_map = gen_map(geodata=choro_data, color_column='properties.pop_2000', t
 pop_2000_map
 ```
 
-
-<div class="vega-embed" id="aca360ef-3c53-4047-887d-40df2c290a4a"></div>
-
-<style>
-.vega-embed .vega-actions > a {
-    transition: opacity 200ms ease-in;
-    opacity: 0.3;
-    margin-right: 0.6em;
-    color: #444;
-    text-decoration: none;
-}
-
-.vega-embed .vega-actions > a:hover {
-    color: #000;
-    text-decoration: underline;
-}
-
-.vega-embed:hover .vega-actions > a {
-    opacity: 1;
-    transition: 0s;
-}
-
-.vega-embed .error p {
-    color: firebrick;
-    font-size: 1.2em;
-}
-</style>
-
-
-
-
-
-
-
-
-    
-
-
-
-
 ![png](markdown_images/Altair_Demo_16_3.png)
-
 
 ## Add 2010 Population to Map
 
@@ -560,51 +460,10 @@ Lastly, we generate a second choropleth for 2010 population using the "gen_map" 
 
 By concatentating these two maps together, the color scale automatically adjusts to span both maps.
 
-
 ```python
 pop_2010_map = gen_map(geodata=choro_data, color_column='properties.pop_2010', title='2010')
 pop_2000_map | pop_2010_map
 ```
-
-
-<div class="vega-embed" id="36ea744d-2032-4f8c-af8b-bc113593d959"></div>
-
-<style>
-.vega-embed .vega-actions > a {
-    transition: opacity 200ms ease-in;
-    opacity: 0.3;
-    margin-right: 0.6em;
-    color: #444;
-    text-decoration: none;
-}
-
-.vega-embed .vega-actions > a:hover {
-    color: #000;
-    text-decoration: underline;
-}
-
-.vega-embed:hover .vega-actions > a {
-    opacity: 1;
-    transition: 0s;
-}
-
-.vega-embed .error p {
-    color: firebrick;
-    font-size: 1.2em;
-}
-</style>
-
-
-
-
-
-
-
-
-    
-
-
-
 
 ![png](markdown_images/Altair_Demo_18_3.png)
 
@@ -617,4 +476,3 @@ Now that we can view the two maps side-by-side, some trends jump out immediately
 + Wards 7 and 8 are largely losing population in both absolute and relative terms
 
 I hope this walkthrough has peaked your interest in Altair.  You can find the notebook that this post is based on [here](https://github.com/msussman/Altair_Demo/blob/master/notebooks/Altair_Demo.ipynb)
-
