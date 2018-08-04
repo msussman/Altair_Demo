@@ -16,7 +16,7 @@ In addition to Altair's excellent [documentation](https://altair-viz.github.io) 
 
 In addition to Altair, which I recommend you follow the installation instructions [here](https://altair-viz.github.io/getting_started/installation.html#installation-notebook), we'll be using the packages below for this demostration.
 
-+ Requests - In order to pull the DC geopolitical GeoJSON from the [Open Data DC](http://opendata.dc.gov/) website.
++ Requests - In order to pull the DC geopolitical GeoJSON from the [Open Data DC](http://opendata.dc.gov/) website. 
 + Pandas - In order to read in the cleaned DC population data that we'll add as the choropleth layer on our map
 + Geopandas - In order to join the DC population and GeoJSON data together
 + JSON - In order to convert the Geopandas dataframe into a JSON, which is required by Altair.  More context on Altair Geopandas incompatibility can be found [here](https://github.com/altair-viz/altair/issues/588).
@@ -41,6 +41,7 @@ In order to render Altair plots in Jupyter Noteboook, you must enable the "alt.r
 If you're interested in saving your maps or any other plot as a JPEG, it's highly recommended that you also enable the 'opaque' theme, as the default Altair theme is transparent. The defauly theme will cause a your JPEG to have a checkered background.
 
 Note that while Jupyter notebook is fully supported by Altair, the developers recommend using Jupyterlab for a better experience.
+
 
 
 ```python
@@ -88,7 +89,7 @@ base_layer
 ```
 
 
-<div class="vega-embed" id="fef8958d-83ae-487a-8efd-5955b14dc652"></div>
+<div class="vega-embed" id="f14ed2c6-d3db-4912-a3ab-158ecb4983d6"></div>
 
 <style>
 .vega-embed .vega-actions > a {
@@ -133,6 +134,7 @@ base_layer
 ## Convert to Geopandas Dataframe
 
 Next, we'll convert the GeoJSON used to create the base layer of the map to a Geopandas dataframe in order to join on the ANC specific population data and make some additional data manipulations.  Geopandas dataframes function almost exactly like standard Pandas dataframe, except they have additional functionality for geographic geometry like points and polygons.
+
 
 ```python
 # Convert GeoJSON to Geopandas Dataframe 
@@ -646,7 +648,6 @@ pop_2000_map | pop_2010_map
 
 ![png](markdown_images/Altair_Demo_18_3.png)
 
-
 ## Observations on Final Maps
 
 Now that we can view the two maps side-by-side, some trends jump out immediately:
@@ -656,5 +657,4 @@ Now that we can view the two maps side-by-side, some trends jump out immediately
 + Wards 7 and 8 are largely losing population in both absolute and relative terms
 
 I hope this walkthrough has peaked your interest in Altair.  You can find the notebook that this post is based on [here](https://github.com/msussman/Altair_Demo/blob/master/notebooks/Altair_Demo.ipynb)
-
 
