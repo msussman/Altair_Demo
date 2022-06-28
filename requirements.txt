@@ -1,5 +1,5 @@
 altair==2.1.0
-arrow==0.12.1
+arrow==0.15.1
 backcall==0.1.0
 binaryornot==0.4.4
 bleach==2.1.3
