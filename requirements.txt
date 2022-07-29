@@ -27,7 +27,7 @@ jsonschema==2.6.0
 jupyter-client==5.2.3
 jupyter-core==4.4.0
 MarkupSafe==1.0
-mistune==0.8.3
+mistune==2.0.3
 mkl-fft==1.0.2
 mkl-random==1.0.1
 munch==2.3.2
